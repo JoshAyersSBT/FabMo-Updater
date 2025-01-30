@@ -189,10 +189,12 @@
       &nbsp; -->
       <!--Set of Checkboxes for selecting what elements are displayed in the console-->
       <div class="checkbox-group">
-        <label><input type="checkbox" name="Info"> Info </label>
-        <label><input type="checkbox" name="Warn"> Warn </label>
-        <label><input type="checkbox" name="Shell"> Shell </label>
-        <label><input type="checkbox" name="Debug"> Debug </label>
+        <label><input type="checkbox" class="log-filter" value="info:"> Info</label>
+        <label><input type="checkbox" class="log-filter" value="debug:"> Debug</label>
+        <label><input type="checkbox" class="log-filter" value="warn:"> Warn</label>
+        <label><input type="checkbox" class="log-filter" value="error:"> Error</label>
+        <label><input type="checkbox" class="log-filter" value="g2:"> G2</label>
+        <label><input type="checkbox" class="log-filter" value="shell:"> Shell</label>        
     </div>
       <i id="btn-console-clear" class="fa fa-md fa-remove"></i>
       &nbsp;

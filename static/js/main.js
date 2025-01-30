@@ -141,14 +141,35 @@ function prettify(line) {
 // Print a line to the "console"
 //   s - The line to print (No \n necessary)
 function printf(s) {
-    var log = $('#console .content');
-    lines = s.split('\n');
-    lines.forEach(function(line) {
-        log.append(prettify(line));
-    });
-    var scrollpane = $('#console');
-    scrollpane[0].scrollTop = scrollpane[0].scrollHeight;
+  var log = $('#console .content');
+  var selectedFilters = getSelectedFilters(); // Retrieve the selected checkbox filters
+  lines = s.split('\n');
+  
+  lines.forEach(function(line) {
+      if (shouldDisplayLine(line, selectedFilters)) {
+          log.append(prettify(line));
+      }
+  });
+
+  var scrollpane = $('#console');
+  scrollpane[0].scrollTop = scrollpane[0].scrollHeight;
 }
+
+// Function to get the selected filter options from checkboxes
+function getSelectedFilters() {
+  var filters = [];
+  $('.log-filter:checked').each(function() {
+      filters.push($(this).val());
+  });
+  return filters;
+}
+
+// Function to determine if a log line should be displayed
+function shouldDisplayLine(line, selectedFilters) {
+  if (selectedFilters.length === 0) return true; // Show all if no filters selected
+  return selectedFilters.some(filter => line.includes(filter));
+}
+
 
 // Clear the contents of the updater console
 function clearConsole() {

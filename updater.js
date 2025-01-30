@@ -10,8 +10,6 @@
  * in the manifest with local versions. 
  */
 var log = require('./log').logger('updater');
-//var detection_service = require('./detection_daemon');
-//var Beacon = require('./beacon');
 var authentication = require('./authentication');
 
 var fmp = require('./fmp');
@@ -184,33 +182,6 @@ Updater.prototype.addAvailablePackage = function(package) {
     return package;
 }
 
-////##
-// TODO - ???
-// Updater.prototype.stop = function(callback) {
-//     callback(null);
-// };
-
-////##
-// // Update the engine
-// // TODO - I think this is a legacy function that does the GIT update - should be removed - everything is done with .fmp files now
-// Updater.prototype.updateEngine = function(version, callback) {
-//     if(this.status.state != 'idle') {
-//         callback(new Error('Cannot update the engine when in the ' + this.status.state + ' state.'));
-//     } else {
-//         hooks.updateEngine(version, callback);
-//     }
-// }
-
-////##
-// // Install a specific version of the engine
-// // TODO - This is legacy code that should no longer be used.  The update process is done with .fmp files now.
-// Updater.prototype.installEngine = function(version, callback) {
-//     if(this.status.state != 'idle') {
-//         callback(new Error('Cannot install the engine when in the ' + this.status.state + ' state.'));
-//     } else {
-//         hooks.installEngine(version, callback);
-//     }
-// }
 
 // Initiate a >FabMo Restart< on Raspberry Pi (hijacked Reset)
 // Since this program will be shut down when the reset is initiated, the callback is called before doing the actual reset.
@@ -473,30 +444,6 @@ function UpdaterConfigFirstTime(callback) {
                         callback();
                     })
                 } else {
-////## Don't know what this was intended for or why functionality missing; defaulted out?
-                // require('./util').getCpuInfo(function(err,cpus){
-                // if(err) return log.warn(err);
-                // for( c in cpus ){
-                // if (cpus[c].Hardware === "BCM2708" || cpus[c].Hardware === "BCM2709"){
-                //     log.info("Raspberry Pi platform detected");
-                // config.updater.set('platform', 'raspberry-pi');
-                //     hooks.getUniqueID(function(err, id) {
-                //         if(err) {
-                //             var id = '';
-                //             log.error('There was a problem generating the factory ID:');
-                //             log.error(err);
-                //             for(var i=0; i<6; i++) {
-                //                 id += (Math.floor(Math.random()*15)).toString(16);
-                //             }
-                //         }
-                //         var hostname = 'FabMo-' + id;
-                //         config.updater.set('name', hostname.substring(0,30));
-                //         callback();
-                //     })
-
-                //             }
-                //         }                  
-                // });
             }
             } catch(e) {
             log.error(e);
@@ -578,8 +525,7 @@ Updater.prototype.start = function(callback) {
         }.bind(this),
 
         // Get the updater version
-//        // If the updater version has changed, we clear beacon consent 
-//        // (Give the user another chance to opt-out of beacon)
+
         function get_version(callback) {
             this.getVersion(function(err, version) {
                 if(!err) {
@@ -775,8 +721,6 @@ Updater.prototype.start = function(callback) {
 
             log.info('Configuring websocket...');
             
-            ////## server.io = socketio.listen(server.server);
-            ////## changes below per RMackie engine.js
             log.info('Loading routes...');
             
             server.io = require('socket.io')(server.server);
