@@ -676,6 +676,7 @@ Updater.prototype.start = function(callback) {
 
             // Register a generic, well-formed response in the case of any uncaught exception
             // TODO - is this really a good idea?
+            // Who Knows?
             server.on('uncaughtException', function(req, res, route, err) {
                 log.uncaught(err);
                 answer = {
