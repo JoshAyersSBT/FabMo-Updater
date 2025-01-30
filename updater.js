@@ -222,47 +222,6 @@ Updater.prototype.factoryReset = function(callback) {
         hooks.factoryReset();
     }
 }
-
-
-// Update the updater
-// TODO - This is legacy code that should no longer be used.  The update process is done with .fmp files now.
-Updater.prototype.updateUpdater = function(version, callback) {
-    if(this.status.state != 'idle') {
-        callback(new Error('Cannot update the updater when in the ' + this.status.state + ' state.'));
-    } else {
-        callback(); // Go ahead and callback because the updater update is going to cause the process to bail.
-        hooks.updateUpdater();
-    }
-}
-
-// Get the list of versions available to install
-// TODO - This is legacy code that should no longer be used.  The update process is done with .fmp files now.
-Updater.prototype.getVersions = function(callback) {
-    hooks.getVersions(callback);
-}
-
-// Initiate a firmware update
-// TODO - This is legacy code that should no longer be used.  The update process is done with .fmp files now.
-Updater.prototype.updateFirmware = function(callback) {
-    if(this.status.state != 'idle') {
-        callback(new Error('Cannot update the firmware when in the ' + this.status.state + ' state.'));
-    } else {
-        hooks.updateFirmware(config.updater.get('firmware_file'), callback);
-    }
-}
-
-////## ?? FMU vs FMP
-// Execute the FMU package specified
-//   filename - The full path of the FMU file to run
-// TODO - This is legacy code that should no longer be used.  The update process is done with .fmp files now.
-Updater.prototype.doFMU = function(filename, callback) {
-    if(this.status.state != 'idle') {
-        callback(new Error('Cannot apply FMU update when in the ' + this.status.state + ' state.'));
-    } else {
-        hooks.doFMU(filename, callback);
-    }
-}
-
 // Execute the FMP (FabMo Package) specified by the provided filename
 // This function starts a task, and returns a promise that resolves when the task is complete (or rejects if it fails)
 //   filename - Full path to the .fmp file to execute
