@@ -184,18 +184,19 @@
 
     <!-- Console (Always Visible) -->
     <div id="console-header">
+      <div class="checkbox-group">
+        <label><input type="checkbox" class="log-filter" value="info:" checked> Info</label>
+        <label><input type="checkbox" class="log-filter" value="debug:" checked > Debug</label>
+        <label><input type="checkbox" class="log-filter" value="warn:" checked> Warn</label>
+        <label><input type="checkbox" class="log-filter" value="error:" checked> Error</label>
+        <label><input type="checkbox" class="log-filter" value="g2:" checked> G2</label>
+        <label><input type="checkbox" class="log-filter" value="shell:"checked> Shell</label>        
+      </div>
       Updater Console &nbsp;
       <!--<i id="btn-console-copy" class="fa fa-clipboard fa-md"></i>
       &nbsp; -->
       <!--Set of Checkboxes for selecting what elements are displayed in the console-->
-      <div class="checkbox-group">
-        <label><input type="checkbox" class="log-filter" value="info:"> Info</label>
-        <label><input type="checkbox" class="log-filter" value="debug:"> Debug</label>
-        <label><input type="checkbox" class="log-filter" value="warn:"> Warn</label>
-        <label><input type="checkbox" class="log-filter" value="error:"> Error</label>
-        <label><input type="checkbox" class="log-filter" value="g2:"> G2</label>
-        <label><input type="checkbox" class="log-filter" value="shell:"> Shell</label>        
-    </div>
+
       <i id="btn-console-clear" class="fa fa-md fa-remove"></i>
       &nbsp;
       <span id="message-console"></span>
