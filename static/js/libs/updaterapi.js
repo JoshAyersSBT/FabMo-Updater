@@ -496,7 +496,6 @@ UpdaterAPI.prototype._post = function(url, data, errback, callback, key) {
 				console.error("Got a bad response from server: " + xhr.status);
 				break;
 		}
-////## engine version has added bind
 //    }.bind(this);
     }
 console.log("at send point .....")

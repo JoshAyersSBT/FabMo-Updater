@@ -128,7 +128,11 @@ function prettify(line) {
     var level = match[1];
     var msg = match[2];
     lastLevel = level;
-    return '<span class="loglevel-' + level + '">' + level + ':</span>' + msg + '\n'
+    if (level in getSelectedFilters())
+    {
+      return '<span class="loglevel-' + level + '">' + level + ':</span>' + msg + '\n'
+    }
+    else{ return ''}
   } else {
     blank = [];
     for(var i=0; i<lastLevel.length; i++) {
