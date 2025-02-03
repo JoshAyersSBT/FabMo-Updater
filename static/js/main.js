@@ -592,17 +592,24 @@ $(document).ready(function() {
 
       // Populate the table of engine information
       updater.getEngineInfo(function(err, info) {
-        if(err) {
-          $('.label-engine-version').text('unavailable');
-          $('.label-fw-build').text('unavailable');
-          $('.label-fw-config').text('unavailable');
-          $('.label-fw-version').text('unavailable');
-        } else {
-          var engine_version_number = info.version.number || info.version.hash.substring(0,8) + '-' + info.version.type
-          $('.label-fw-build').text(info.firmware.build || 'unavailable');
-          $('.label-fw-config').text(info.firmware.config || 'unavailable');
-          $('.label-fw-version').text((info.firmware.version).replace('-dirty','') || 'unavailable');
-          $('.label-engine-version').text(engine_version_number || 'unavailable');
+        try
+        {
+          if(err) {
+            $('.label-engine-version').text('unavailable');
+            $('.label-fw-build').text('unavailable');
+            $('.label-fw-config').text('unavailable');
+            $('.label-fw-version').text('unavailable');
+          } else {
+            var engine_version_number = info.version.number || info.version.hash.substring(0,8) + '-' + info.version.type
+            $('.label-fw-build').text(info.firmware.build || 'unavailable');
+            $('.label-fw-config').text(info.firmware.config || 'unavailable');
+            $('.label-fw-version').text((info.firmware.version).replace('-dirty','') || 'unavailable');
+            $('.label-engine-version').text(engine_version_number || 'unavailable');
+          }
+        }
+        catch{
+          console.log("Build Information unavalible:\n\t Setting engine_version_number to placeholder of 0");
+          var engine_version_number = 0;
         }
       });
       // Populate the current status of the engine and update last step in the update progress report
