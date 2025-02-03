@@ -597,7 +597,6 @@ $(document).ready(function() {
           $('.label-fw-build').text('unavailable');
           $('.label-fw-config').text('unavailable');
           $('.label-fw-version').text('unavailable');
-
         } else {
           var engine_version_number = info.version.number || info.version.hash.substring(0,8) + '-' + info.version.type
           $('.label-fw-build').text(info.firmware.build || 'unavailable');
