@@ -56,8 +56,3 @@ function shouldDisplayLine(line, selectedFilters) {
     if (selectedFilters.length === 0) return true; // Show all if no filters selected
     return selectedFilters.some(filter => line.includes(filter));
 }
-
-// Prettify function placeholder (ensure this exists in your project)
-function prettify(line) {
-    return `<pre>${line}</pre>`; // Example formatting
-}
