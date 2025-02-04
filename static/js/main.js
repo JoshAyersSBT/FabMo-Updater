@@ -141,7 +141,7 @@ function prettify(line) {
     return blank + '  ' + line + '\n'
   }
 }
-
+ /*
 // Print a line to the "console"
 //   s - The line to print (No \n necessary)
 function printf(s) {
@@ -172,7 +172,7 @@ function getSelectedFilters() {
 function shouldDisplayLine(line, selectedFilters) {
   if (selectedFilters.length === 0) return true; // Show all if no filters selected
   return selectedFilters.some(filter => line.includes(filter));
-}
+}*/
 
 
 // Clear the contents of the updater console
