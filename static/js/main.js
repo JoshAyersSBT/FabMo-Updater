@@ -61,18 +61,6 @@ function setOS(os) {
   $("#system-icon").attr('class', iconClass)
 }
 
-// Set whether or not this host is online
-// TODO - I think this is old and should be removed
-function setOnline(online) {
-  if(online) {
-    $('#update-controls').show();
-    $('#message-noupdate-ap').hide();
-  } else {
-    $('#update-controls').hide();
-    $('#message-noupdate-ap').show();
-  }
-}
-
 // Flatten an object:
 // Example: flattenObject({a : { b : {c : { d: 2}}}}) -> {a-b-c-d : 2}
 var flattenObject = function(ob) {
@@ -141,38 +129,12 @@ function prettify(line) {
     return blank + '  ' + line + '\n'
   }
 }
- /*
-// Print a line to the "console"
-//   s - The line to print (No \n necessary)
-function printf(s) {
-  var log = $('#console .content');
-  var selectedFilters = getSelectedFilters(); // Retrieve the selected checkbox filters
-  lines = s.split('\n');
-  
-  lines.forEach(function(line) {
-      if (shouldDisplayLine(line, selectedFilters)) {
-          log.append(prettify(line));
-      }
-  });
-
-  var scrollpane = $('#console');
-  scrollpane[0].scrollTop = scrollpane[0].scrollHeight;
-}
-
-// Function to get the selected filter options from checkboxes
-function getSelectedFilters() {
-  var filters = [];
-  $('.log-filter:checked').each(function() {
-      filters.push($(this).val());
-  });
-  return filters;
-}
 
 // Function to determine if a log line should be displayed
 function shouldDisplayLine(line, selectedFilters) {
   if (selectedFilters.length === 0) return true; // Show all if no filters selected
   return selectedFilters.some(filter => line.includes(filter));
-}*/
+}
 
 
 // Clear the contents of the updater console
@@ -463,11 +425,6 @@ $(document).ready(function() {
   //
   // System Functions
   //
-
-  // TODO - Obsolete?
-  $("#btn-start-engine").click(function() {updater.startEngine()});
-  $("#btn-stop-engine").click(function() {updater.stopEngine()});
-
   $("#btn-check-for-updates").click(function() {
     $("#btn-check-for-updates").addClass('disabled');
     $('#check-button-icon').removeClass('fa-cloud-download').addClass('fa-cog fa-spin');

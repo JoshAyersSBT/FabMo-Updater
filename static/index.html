@@ -20,23 +20,12 @@
   <div id="menu">
     <ul class="items">
       <li class="menu-title"><span>FabMo Updater</span></li>
-<!--
-      <li class="menu-label">
-        <a href="#">
-          <i id="system-icon" class="fa fa-question"></i> <span class="label-wifi-network-id">&lt;name&gt;</span>
-          </a>
-      </li>
--->
+
       <li class="menu-item active" data-id="view-info"><a href="#"><i class="fa fa-info-circle"></i> FabMo System Info</a></li>
-<!--
-      <li class="menu-item" data-id="view-wireless"><a href="#"><i class="fa fa-wifi"></i> Wireless</a></li>
-      <li class="menu-item" data-id="view-network"><a href="#"><i class="fa fa-plug"></i> Network</a></li>
--->
+
       <li class="menu-item" data-id="view-updates"><a href="#"><i class="fa fa-download update-indicator"></i><span class="update-indicator"> FabMo Software Updates</span></a></li>
       <li class="menu-item" data-id="view-settings"><a href="#"><i class="fa fa-wrench"></i> Settings</a></li>
-<!--
-      <li class="menu-item" data-id="simple-updater"><a href="#"><i class="fa fa-user"></i> Simple Updater</a></li>
--->
+
       <li class="menu-item" data-id="goto-dashboard"><a href="#"><i class="fa fa-tachometer"></i> Return to FabMo</a></li>
       <li class="menu-item" data-id="view-factory"><a href="#"><i class="fa fa-industry"></i> Re-Start FabMo</a></li>
       <li class="menu-item" data-id="view-console"><a href="#"><i class="fa fa-terminal"></i> Console</a></li>
@@ -137,12 +126,6 @@
          <button id="btn-wifi-network-id" class="btn-green">Set System ID</button>
         </fieldset>
       </form>
-      <!--
-      <h2>Engine Control</h2>
-      <p>The buttons below can be used to start and stop the engine software.  <em>These operations do not normally need to be performed manually.</em></p>
-      <button id="btn-start-engine" class="button btn-green">Start Engine</button>
-      <button id="btn-stop-engine" class="button btn-red">Stop Engine</button>
-      -->
       <h2>Configuration</h2>
       <fieldset>
         <ul>
@@ -150,28 +133,9 @@
             <label class="settings" for="config-packages_url">Packages URL: </label>
             <input class="config-input long" id="config-packages_url" type="text" placeholder="URL for update packages file" />
           </li>
-          <!--
-          <li>
-            <label class="settings" for="config-beacon_url">Beacon URL: </label>
-            <input class="config-input long" id="config-beacon_url" type="text" placeholder="URL for the beacon server" />
-          </li>
-          <li>
-            <label class="settings" for="config-beacon_consent">Beacon Consent: </label>
-            <select class="config-input long" id="consent_for_beacon"/>
-              <option value="true">True</option>
-              <option value="false">False</option>
-            </select>
-          </li>
-          -->
         <ul>
       </fieldset>
     </div>
-
-    <!--
-
-      FABMO RE-START // Hijacked from older Reset
-
-    -->
     <div class="content-pane" id="view-factory">
       <h1><i class="fa fa-industry"></i> Re-Start FabMo</h1>
       <p>The button below will perform a soft re-start of the full FabMo program and attempt to reconnect to the G2 motion controller. You will need to re-home your tool.</p>
@@ -184,7 +148,7 @@
 
     <!-- Console (Always Visible) -->
     <div id="console-header">
-      
+            <!--Set of Checkboxes for selecting what elements are displayed in the console-->
       <div class="checkbox-group">
         <label><input type="checkbox" class="log-filter" value="info:" checked> Info</label>
         <label><input type="checkbox" class="log-filter" value="debug:" checked > Debug</label>
@@ -193,10 +157,8 @@
         <label><input type="checkbox" class="log-filter" value="g2:" checked> G2</label>
         <label><input type="checkbox" class="log-filter" value="shell:"checked> Shell</label>        
       </div>
-      Updater Console &nbsp;
-      <!--<i id="btn-console-copy" class="fa fa-clipboard fa-md"></i>
-      &nbsp; -->
-      <!--Set of Checkboxes for selecting what elements are displayed in the console-->
+
+      Updater Console &nbsp;<!--What is this?-->
 
       <i id="btn-console-clear" class="fa fa-md fa-remove"></i>
       &nbsp;
@@ -220,7 +182,7 @@
     </div>
   </div>
 </div>
-<script src="js/persistance.js"></script> // for persistance of checkboxes across mutliple states of the code
+<!--<script src="js/persistance.js"></script> // for persistance of checkboxes across mutliple states of the code -->
 <script src="/socket.io/socket.io.js"></script>
 <script src="js/libs/jquery.min.js"></script>
 <script src="js/libs/updaterapi.js"></script>
