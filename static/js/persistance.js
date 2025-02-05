@@ -27,9 +27,11 @@ document.addEventListener("DOMContentLoaded", function() {
 // Print function with filtering based on selected checkboxes
 function printf(s) {
     var log = document.querySelector('#console .content');
+    log.innerHTML = "";  // Clear previous logs
+
     var selectedFilters = getSelectedFilters();
     let lines = s.split('\n');
-    
+
     lines.forEach(function(line) {
         if (shouldDisplayLine(line, selectedFilters)) {
             let div = document.createElement("div");
@@ -51,8 +53,27 @@ function getSelectedFilters() {
     return filters;
 }
 
+function setOnline(status) {
+    var onlineIndicator = document.getElementById('updater-status');
+    if (status) {
+        onlineIndicator.classList.remove('status-disconnected');
+        onlineIndicator.classList.add('status-idle');
+        onlineIndicator.innerText = ' Online';
+    } else {
+        onlineIndicator.classList.remove('status-idle');
+        onlineIndicator.classList.add('status-disconnected');
+        onlineIndicator.innerText = ' Offline';
+    }
+  }
+    
+
 // Determine if a log line should be displayed
 function shouldDisplayLine(line, selectedFilters) {
-    if (selectedFilters.length === 0) return true; // Show all if no filters selected
-    return selectedFilters.some(filter => line.includes(filter));
+    return selectedFilters.some(filter => line.startsWith(filter));
 }
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(loadCheckboxStates, 100); // Delay to ensure DOM is ready
+    document.querySelectorAll('.log-filter').forEach(checkbox => {
+        checkbox.addEventListener('change', saveCheckboxStates);
+    });
+});

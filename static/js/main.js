@@ -82,6 +82,7 @@ var flattenObject = function(ob) {
   return toReturn;
 };
 
+
 // Set the provided updater configuration entry to the value specified
 //      id - The key to update
 //   value - The new value
@@ -104,6 +105,20 @@ function setConfig(id, value) {
     update();
   });
 }
+
+function setOnline(status) {
+  var onlineIndicator = document.getElementById('updater-status');
+  if (status) {
+      onlineIndicator.classList.remove('status-disconnected');
+      onlineIndicator.classList.add('status-idle');
+      onlineIndicator.innerText = ' Online';
+  } else {
+      onlineIndicator.classList.remove('status-idle');
+      onlineIndicator.classList.add('status-disconnected');
+      onlineIndicator.innerText = ' Offline';
+  }
+}
+
 
 var lastLevel = ''
 // Prettify a line for "console" output
@@ -501,6 +516,7 @@ $(document).ready(function() {
 
   });
 
+
   // Check Engine Info and Status routinely since a change can happen behind the scenes
   function engineUpdateService() {
     setTimeout(engineUpdateService,5000);
@@ -541,7 +557,27 @@ $(document).ready(function() {
         }
       });
     }
+  function printf(s) {
+      var log = document.querySelector('#console .content');
+      var selectedFilters = getSelectedFilters();
+      let lines = s.split('\n');
 
+      lines.forEach(function(line) {
+          if (shouldDisplayLine(line, selectedFilters)) {
+              let div = document.createElement("div");
+              div.innerHTML = prettify(line);
+              log.appendChild(div);
+          }
+      });
+
+      var scrollpane = document.querySelector('#console');
+      scrollpane.scrollTop = scrollpane.scrollHeight;
+  }
+
+    updater.on('log', function(msg) {
+      printf(msg);  // Ensure `printf()` is always called
+  });
+  
   engineUpdateService();
 
 });
