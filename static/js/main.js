@@ -121,6 +121,15 @@ var lastLevel = ''
 // Prettify a line for "console" output
 // Returns HTML that colorizes the log level
 //   line - The line to format
+var logLevelColors = {
+  "info": "loglevel-info",
+  "debug": "loglevel-debug",
+  "warn": "loglevel-warn",
+  "error": "loglevel-error",
+  "g2": "loglevel-g2",
+  "shell": "loglevel-shell"
+};
+
 function prettify(line) {
   var line_re = /^(\w*)\:(.*)/i;
   var match = line_re.exec(line);
@@ -133,7 +142,7 @@ function prettify(line) {
       
       var msg = match[2];
       lastLevel = level;
-      return '<span class="loglevel-' + level + '">' + level + '</span>' + msg + '\n';
+      return `<span class="loglevel-${level} ">${level}</span> ${msg}\n`;
   } else {
       return line + '\n';
   }
