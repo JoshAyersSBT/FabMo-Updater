@@ -148,7 +148,6 @@ function prettify(line) {
   }
 }
 
-
 function updateConsoleDisplay() {
   var log = $('#console .content');
   var allLines = log.text().split('\n');
@@ -159,7 +158,6 @@ function updateConsoleDisplay() {
       }
   });
 }
-
 
 function shouldDisplay(line) {
   var match = line.match(/^(\w+):/);
@@ -486,47 +484,6 @@ $(document).ready(function() {
     }
   });
 
-// TODO Obsolete?
-  $("#btn-update-latest").click( function(evt) {
-    evt.preventDefault();
-    updater.updateEngine('master');
-  });
-
-  // TODO Obsolete?
-  $("#btn-update-updater-latest").click( function(evt) {
-    evt.preventDefault();
-    updater.updateUpdater('master');
-  });
-
-  // TODO Obsolete?
-  $("#form-update-stable").submit(function(evt) {
-    evt.preventDefault();
-    updater.updateEngine($("#update-version").val());
-  });
-
-  // TODO Obsolete?
-  $("#btn-update-firmware").click( function(evt) {
-    evt.preventDefault();
-    updater.updateFirmware();
-  });
-
-  // TODO Obsolete?
-  $("#btn-reinstall").click( function(evt) {
-      evt.preventDefault();
-      showModal({
-        title : 'Reinstall Engine?',
-        message : 'This will reinstall the FabMo engine <em>from scratch</em> - You will lose all your settings and apps, and will take several minutes.  This is only to be done in circumstances in which <em>the engine is corrupted and unrecoverable by any other means</em> - Are you sure you wish to do this?  Are you absolutely sure?',
-        icon : 'fa-exclamation-circle',
-        okText : 'Yes!  I understand the risk!',
-        cancelText : 'No!  Get me out of here!',
-        ok : function() {
-          updater.installEngine()
-        },
-        cancel : function() {
-          dismissModal();
-        }
-      });
-  });
 
   // Apply prepared updates
   $("#btn-update-apply").click(function(evt) {
@@ -569,19 +526,62 @@ $(document).ready(function() {
   // System Functions
   //
 
-  // TODO - Obsolete?
-  $("#btn-start-engine").click(function() {updater.startEngine()});
-  $("#btn-stop-engine").click(function() {updater.stopEngine()});
-
-  $("#btn-check-for-updates").click(function() {
-    $("#btn-check-for-updates").addClass('disabled');
-    $('#check-button-icon').removeClass('fa-cloud-download').addClass('fa-cog fa-spin');
-    $("#check-button-text").text('Checking...');
-    clearConsole();
-    updater.checkForUpdates();
-  });
-
   // Console clear button
+// Get server IP dynamically from current window location
+var serverIP = window.location.hostname;
+
+var lastProcessedIndex = 0; // Track the last processed line index
+
+async function fetchExternalLogs() {
+    try {
+        let response = await fetch(`http://${serverIP}/log`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        let data = await response.text();
+        processExternalLogData(data);
+    } catch (error) {
+        console.error("Failed to fetch external logs:", error);
+    }
+}
+
+// Fetch logs every 500ms
+setInterval(fetchExternalLogs, 500);
+
+function processExternalLogData(logData) {
+    var logContainer = document.getElementById('external-log');
+
+    if (!logContainer) {
+        console.error("Error: Log container not found!");
+        return;
+    }
+
+    // Ensure proper splitting of lines and remove empty lines
+    var lines = logData.split(/\r?\n/).map(line => line.trim()).filter(line => line.length > 0);
+
+    // Extract only the new lines
+    let newLines = lines.slice(lastProcessedIndex);
+    lastProcessedIndex = lines.length; // Update the tracker
+
+    newLines.forEach(function(line) {
+        // **Only process lines that match our log filters**
+        if (/^(debug|info|g2|shell|warn|error)/i.test(line)) {
+            let logEntry = document.createElement('div');
+            logEntry.style.whiteSpace = "pre-wrap"; // Ensure proper word wrapping
+            logEntry.style.margin = "2px 0"; // Adds spacing for readability
+            logEntry.innerHTML = prettify(line); // Use innerHTML to retain styling
+
+            logContainer.prepend(logEntry); // Prepend to show the latest logs first
+        }
+    });
+
+    logContainer.scrollTop = logContainer.scrollHeight; // Auto-scroll to bottom
+}
+
+
+
   $('#btn-console-clear').click(function() {clearConsole()});
 
   // Button to browse for a manual update
